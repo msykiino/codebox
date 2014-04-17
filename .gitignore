@@ -12,6 +12,7 @@
 .#*
 .*~
 .DS_Store
+.env
 .svn
 .vim/.netrwhist
 .vim/bundle
