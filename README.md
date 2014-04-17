@@ -1,4 +1,4 @@
-codebox
-=======
+# Sample Vagrantfile for DigitalOcean
 
-Code samples for Blog posts
+-----
+
