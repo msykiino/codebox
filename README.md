@@ -1,4 +1,4 @@
-codebox
-=======
+# Sample ansible playbooks for AWS
 
-Code samples for Blog posts
+-----
+
