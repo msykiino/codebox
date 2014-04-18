@@ -1,0 +1,3 @@
+color_scheme 2
+date_format %d/%b/%Y:%T %z
+log_format host:%h\tuser:%^\ttime:%d\treq:%r\tstatus:%s\tsize:%b\treferer:%R\tua:%u\tforwardedfor:%^\treqtime:%T\tapptime:%^

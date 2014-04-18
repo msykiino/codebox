@@ -1,0 +1,95 @@
+---
+
+#
+# [ update base packages ]
+#
+# yum update package database {{{
+
+- name:    yum check-update
+  command: yum check-update
+  ignore_errors: yes
+
+# }}}
+# yum update {{{
+
+- name:    yum update
+  command: yum -y update
+
+# }}}
+
+#
+# [ install packages ]
+#
+# install packages {{{
+
+- name: ensure packages are present
+  yum:  name={{ item }} enablerepo=epel state=present
+  with_items:
+    - at
+    - autoconf
+    - automake
+    - bc
+    - binutils
+    - bison
+    - blktrace
+    - boost
+    - byacc
+    - bzip2
+    - cronie
+    - cronie-anacron
+    - crontabs
+    - cscope
+    - curl-devel
+    - ed
+    - file
+    - flex
+    - gcc
+    - gcc-c++
+    - gettext
+    - git
+    - indent
+    - libevent
+    - libjpeg
+    - libmcrypt
+    - libmemcached
+    - libpng
+    - libtool
+    - libxml2
+    - libxml2-devel
+    - libxslt
+    - libxslt-devel
+    - libyaml
+    - make
+    - mailx
+    - ncurses
+    - ncurses-devel
+    - ntp
+    - ntpdate
+    - openssl
+    - openssl-devel
+    - patch
+    - patchutils
+    - pcre
+    - pcre-devel
+    - postfix
+    - readline
+    - readline-devel
+    - rsync
+    - screen
+    - sharutils
+    - sos
+    - time
+    - tmux
+    - unzip
+    - vim
+    - w3m
+    - wget
+    - xz
+    - yum-plugin-fastestmirror
+    - yum-plugin-priorities
+    - zip
+    - zlib
+    - zlib-devel
+
+# }}}
+

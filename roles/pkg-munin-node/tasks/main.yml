@@ -1,0 +1,59 @@
+---
+
+#
+# [ install munin-node ]
+#
+# install munin-node {{{
+
+- name: ensure munin-node is present
+  yum:  name=munin-node state=present
+
+# }}}
+
+#
+# [ place configuration files ]
+#
+# edit /etc/hosts {{{
+
+- name: edit /etc/hosts
+  raw:  |
+        grep "`hostname`" /etc/hosts >/dev/null 2>&1 ;
+        test $? -eq 1 && sudo sh -c "echo \"127.0.0.1   `hostname`\" >> /etc/hosts" ;
+
+  ignore_errors: yes
+
+# }}}
+# copy /etc/munin/munin-node.conf {{{
+
+- name: copy /etc/munin/munin-node.conf
+  copy: src=munin/munin-node.conf
+        dest=/etc/munin/munin-node.conf
+        owner=root group=root mode=0644
+
+# }}}
+# edit /etc/munin/munin-node.conf {{{
+
+- name: edit /etc/munin/munin-node.conf
+  raw:  |
+        sudo perl -pi -e "s/__HOSTNAME__/`hostname`/" /etc/munin/munin-node.conf ;
+
+  ignore_errors: yes
+
+# }}}
+
+#
+# [ call functions ]
+#
+# enable munin-node {{{
+
+- name:    enable munin-node
+  service: name=munin-node enabled=yes state=started
+
+# }}}
+# restart munin-node {{{
+
+- name:    restart munin-node
+  service: name=munin-node enabled=yes state=restarted
+
+# }}}
+

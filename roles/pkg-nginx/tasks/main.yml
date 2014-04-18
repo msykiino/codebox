@@ -1,0 +1,153 @@
+---
+
+#
+# [ install nginx ]
+#
+# install nginx {{{
+
+- name: ensure nginx is present
+  yum:  name=nginx state=present
+
+# }}}
+
+#
+# [ prepare directories ]
+#
+# mkdir /etc/nginx/conf.d {{{
+
+- name: mkdir /etc/nginx/conf.d
+  file: path=/etc/nginx/conf.d
+        owner=root group=root mode=0755 state=directory
+
+# }}}
+# clear config {{{
+
+- name: clear config
+  raw:  >
+    rm -rf /etc/nginx/conf.d/* >/dev/null 2>&1 ;
+
+  ignore_errors: yes
+
+# }}}
+# mkdir /srv {{{
+
+- name: mkdir /srv
+  file: path=/srv
+        owner=root group=root mode=0755 state=directory
+
+# }}}
+# mkdir /srv/html {{{
+
+- name: mkdir /srv/html
+  file: path=/srv/html
+        owner=root group=root mode=0755 state=directory
+
+# }}}
+# mkdir /var/lib/nginx/cache {{{
+
+- name: mkdir /var/lib/nginx/cache
+  file: path=/var/lib/nginx/cache
+        owner=nginx group=nginx mode=0600 state=directory
+
+# }}}
+# mkdir /var/lib/nginx/temp {{{
+
+- name: mkdir /var/lib/nginx/temp
+  file: path=/var/lib/nginx/temp
+        owner=nginx group=nginx mode=0600 state=directory
+
+# }}}
+# mkdir /var/log/nginx {{{
+
+- name: mkdir /var/log/nginx
+  file: path=/var/log/nginx
+        owner=nginx group=nginx mode=0755 state=directory
+
+# }}}
+
+#
+# [ place configuration files ]
+#
+# copy /etc/logrotate.d/nginx {{{
+
+- name: copy /etc/logrotate.d/nginx
+  copy: src=logrotate.d/nginx
+        dest=/etc/logrotate.d/nginx
+        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/nginx/nginx.conf {{{
+
+- name: copy /etc/nginx/nginx.conf
+  copy: src=nginx.conf
+        dest=/etc/nginx/nginx.conf
+        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/nginx/conf.d/default.conf {{{
+
+- name: copy /etc/nginx/conf.d/default.conf
+  copy: src=conf.d/default.conf
+        dest=/etc/nginx/conf.d/default.conf
+        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/nginx/conf.d/localhost.conf {{{
+
+- name: copy /etc/nginx/conf.d/localhost.conf
+  copy: src=conf.d/localhost.conf
+        dest=/etc/nginx/conf.d/localhost.conf
+        owner=root group=root mode=0644
+
+# }}}
+# copy srv/html/403.html {{{
+
+- name: copy /srv/html/403.html
+  copy: src=html/403.html
+        dest=/srv/html/403.html
+        owner=root group=root mode=0644
+
+# }}}
+# copy srv/html/404.html {{{
+
+- name: copy /srv/html/404.html
+  copy: src=html/404.html
+        dest=/srv/html/404.html
+        owner=root group=root mode=0644
+
+# }}}
+# copy srv/html/50x.html {{{
+
+- name: copy /srv/html/50x.html
+  copy: src=html/50x.html
+        dest=/srv/html/50x.html
+        owner=root group=root mode=0644
+
+# }}}
+# copy srv/html/index.html {{{
+
+- name: copy /srv/html/index.html
+  copy: src=html/index.html
+        dest=/srv/html/index.html
+        owner=root group=root mode=0644
+
+# }}}
+# copy srv/html/maintenance.html {{{
+
+- name: copy /srv/html/maintenance.html
+  copy: src=html/maintenance.html
+        dest=/srv/html/maintenance.html
+        owner=root group=root mode=0644
+
+# }}}
+
+#
+# [ call functions ]
+#
+# enable nginx {{{
+
+- name:    enable nginx
+  service: name=nginx enabled=yes state=started
+
+# }}}
+

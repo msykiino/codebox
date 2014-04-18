@@ -1,0 +1,17 @@
+---
+
+- hosts: self
+  gather_facts: False
+  sudo:  True
+  connection: local
+
+  roles:
+    - common
+    - pkg-nginx
+    - pkg-goaccess
+    - inst-jenkins
+    - pkg-munin
+    - pkg-munin-nginx
+    - pkg-munin-node
+    - casual-aws
+

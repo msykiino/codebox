@@ -1,0 +1,7 @@
+jenkins_fetch: http://mirrors.jenkins-ci.org/war/latest/jenkins.war
+jenkins_home:  /var/lib/jenkins
+jenkins_user:  jenkins
+jenkins_group: jenkins
+jenkins_uid:   503
+jenkins_gid:   503
+app_group:     ec2-user

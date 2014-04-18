@@ -1,0 +1,146 @@
+---
+
+#
+# [ useradd jenkins ]
+#
+# adduser jenkins {{{
+
+#- name: adduser jenkins
+#  raw:
+#        getent passwd jenkins > /dev/null 2>&1 ;
+#        test $? -ne 0 && sudo groupadd -g {{ jenkins_gid }} {{ jenkins_group }} && sudo useradd -d {{ jenkins_home }} -s /bin/false -g {{ jenkins_gid }} -u {{ jenkins_uid }} {{ jenkins_user }} && sudo usermod -a -G {{ app_group }} {{ jenkins_user }} ;
+#  ignore_errors: yes
+
+# }}}
+# groupadd jenkins {{{
+
+- name:  groupadd jenkins
+  group: name={{ jenkins_group }} gid={{ jenkins_gid }} state=present
+
+# }}}
+# useradd jenkins {{{
+
+- name: useradd jenkins
+  user: name={{ jenkins_user }} uid={{ jenkins_uid }} group={{ jenkins_group }} groups="{{ jenkins_group }},{{ app_group }}"
+        createhome=yes home={{ jenkins_home }} shell="/bin/false" state=present
+
+# }}}
+
+#
+# [ place dotfiles ]
+#
+# copy .gitconfig {{{
+
+- name: copy .gitconfig
+  copy: src=.gitconfig
+        dest={{ jenkins_home }}/.gitconfig
+        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0644
+
+# }}}
+
+#
+# [ place .ssh/config ]
+#
+# mkdir .ssh {{{
+
+- name: mkdir .ssh
+  file: path={{ jenkins_home }}/.ssh
+        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0700 state=directory
+
+# }}}
+# copy .ssh/config {{{
+
+- name: copy .ssh/config
+  copy: src=.ssh/config
+        dest={{ jenkins_home }}/.ssh/config
+        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0600
+
+# }}}
+
+#
+# [ install jenkins ]
+#
+# mkdir /usr/lib/jenkins {{{
+
+- name: mkdir /usr/lib/jenkins
+  file: path="/usr/lib/jenkins"
+        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0755 state=directory
+
+# }}}
+# mkdir /var/lib/jenkins {{{
+
+- name: mkdir /var/lib/jenkins
+  file: path={{ jenkins_home }}
+        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0755 state=directory
+
+# }}}
+# mkdir /usr/lib/jenkins {{{
+
+- name: mkdir /usr/lib/jenkins
+  file: path=/usr/lib/jenkins
+        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0755 state=directory
+
+# }}}
+# mkdir /var/cache/jenkins {{{
+
+- name: mkdir /var/cache/jenkins
+  file: path=/var/cache/jenkins
+        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0775 state=directory
+
+# }}}
+# mkdir /var/cache/jenkins/war {{{
+
+- name: mkdir /var/cache/jenkins/war
+  file: path=/var/cache/jenkins/war
+        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0775 state=directory
+
+# }}}
+# mkdir /var/log/jenkins {{{
+
+- name: mkdir /var/log/jenkins
+  file: path=/var/log/jenkins
+        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0775 state=directory
+
+# }}}
+# mkdir /var/run/jenkins {{{
+
+- name: mkdir /var/run/jenkins
+  file: path=/var/run/jenkins
+        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0775 state=directory
+
+# }}}
+# copy /etc/jenkins.conf {{{
+
+- name: copy /etc/jenkins.conf
+  copy: src=etc/jenkins.conf
+        dest=/etc/jenkins.conf
+        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/rc.d/init.d/jenkins {{{
+
+- name: copy /etc/rc.d/init.d/jenkins
+  copy: src=etc/rc.d/init.d/jenkins
+        dest=/etc/rc.d/init.d/jenkins
+        owner=root group=root mode=0755
+
+# }}}
+# download jenkins.war {{{
+
+- name:    download jenkins.war
+  get_url: url={{ jenkins_fetch }} dest="/usr/lib/jenkins/jenkins.war"
+           owner={{ jenkins_user }} group={{ jenkins_group }} mode=0644
+
+# }}}
+
+#
+# [ call functions ]
+#
+# enable jenkins {{{
+
+- name:    enable jenkins
+  service: name=jenkins enabled=yes state=started
+  ignore_errors: yes
+
+# }}}
+

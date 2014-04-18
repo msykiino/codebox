@@ -1,0 +1,50 @@
+---
+
+#
+# [ install munin ]
+#
+# install munin {{{
+
+- name: ensure munin is present
+  yum:  name=munin state=present
+
+# }}}
+
+#
+# [ place configuration files ]
+#
+# copy /etc/munin/munin.conf {{{
+
+- name: copy /etc/munin/munin.conf
+  copy: src=munin/munin.conf
+        dest=/etc/munin/munin.conf
+        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/munin/munin-node.conf {{{
+
+#- name: copy /etc/munin/munin-node.conf
+#  copy: src=munin/munin-node.conf
+#        dest=/etc/munin/munin-node.conf
+#        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/munin/munin-htpasswd {{{
+
+#- name: copy /etc/munin/munin-htpasswd
+#  copy: src=munin/munin-htpasswd
+#        dest=/etc/munin/munin-htpasswd
+#        owner=root group=root mode=0644
+
+# }}}
+
+#
+# [ call functions ]
+#
+# enable munin-node {{{
+
+- name:    enable munin-node
+  service: name=munin-node enabled=yes state=started
+
+# }}}
+
