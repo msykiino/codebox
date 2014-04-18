@@ -9,6 +9,8 @@ ENV['VAGRANT_DEFAULT_PROVIDER'] = "digital_ocean"
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
   config.vm.provider :digital_ocean do |provider, override|
     override.vm.hostname          = "vagrant-casual-do"
     override.vm.box               = "digital_ocean"
