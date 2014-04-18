@@ -3,7 +3,7 @@
 
 trap 'echo -e "\nabort: signal trapped\n"; exit 1' 1 2 3 15
 
-REPO_URL="git@github.com:msykiino/codebox.git"
+REPO_URL="https://github.com/msykiino/codebox.git"
 CHECKOUT="ansible-casual-do"
 CLONE_AS="ansible"
 ALIAS_TO="ansible"
