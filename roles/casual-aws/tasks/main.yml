@@ -38,24 +38,44 @@
 #
 # [ call functions ]
 #
-# restart munin-node {{{
+# stop munin-fcgi-graph {{{
 
-- name:    restart munin-node
-  service: name=munin-node enabled=yes state=restarted
-
-# }}}
-# restart munin-fcgi-graph {{{
-
-- name:    restart munin-fcgi-graph
-  service: name=munin-fcgi-graph enabled=yes state=restarted
+- name:    stop munin-fcgi-graph
+  service: name=munin-fcgi-graph enabled=yes state=stopped
 
 # }}}
-# restart munin-fcgi-html {{{
+# stop munin-fcgi-html {{{
 
-- name:    restart munin-fcgi-html
-  service: name=munin-fcgi-html enabled=yes state=restarted
+- name:    stop munin-fcgi-html
+  service: name=munin-fcgi-html enabled=yes state=stopped
 
 # }}}
+# stop munin-node {{{
+
+- name:    stop munin-node
+  service: name=munin-node enabled=yes state=stopped
+
+# }}}
+
+# start munin-fcgi-graph {{{
+
+- name:    start munin-fcgi-graph
+  service: name=munin-fcgi-graph enabled=yes state=started
+
+# }}}
+# start munin-fcgi-html {{{
+
+- name:    start munin-fcgi-html
+  service: name=munin-fcgi-html enabled=yes state=started
+
+# }}}
+# start munin-node {{{
+
+- name:    start munin-node
+  service: name=munin-node enabled=yes state=started
+
+# }}}
+
 # reload nginx {{{
 
 - name:    reload nginx
