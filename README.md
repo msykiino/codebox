@@ -1,4 +1,4 @@
-codebox
-=======
+# Sample Vagrantfile for AWS
 
-Code samples for Blog posts
+-----
+

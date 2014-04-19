@@ -1,0 +1,18 @@
+[user]
+    email = ec2-user@localhost
+    name  = ec2-user
+
+[alias]
+    br = branch
+    ci = commit
+    co = checkout
+    st = status
+
+[color]
+    branch      = auto
+    diff        = auto
+    grep        = auto
+    interactive = auto
+    status      = auto
+    ui          = auto
+
