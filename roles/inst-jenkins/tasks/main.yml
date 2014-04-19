@@ -3,15 +3,6 @@
 #
 # [ useradd jenkins ]
 #
-# adduser jenkins {{{
-
-#- name: adduser jenkins
-#  raw:
-#        getent passwd jenkins > /dev/null 2>&1 ;
-#        test $? -ne 0 && sudo groupadd -g {{ jenkins_gid }} {{ jenkins_group }} && sudo useradd -d {{ jenkins_home }} -s /bin/false -g {{ jenkins_gid }} -u {{ jenkins_uid }} {{ jenkins_user }} && sudo usermod -a -G {{ app_group }} {{ jenkins_user }} ;
-#  ignore_errors: yes
-
-# }}}
 # groupadd jenkins {{{
 
 - name:  groupadd jenkins
