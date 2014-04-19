@@ -17,7 +17,7 @@ echo
 
 # add epel repository {{{
 
-yum repolist | grep ^epel >/dev/null 2>&1
+ls /etc/yum.repos.d | grep -i ^epel >/dev/null 2>&1
 if [ $? -ne 0 ]; then
   if [ ! -d $SRC_DIR ]; then
     mkdir -p $SRC_DIR
