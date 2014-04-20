@@ -11,29 +11,18 @@
 # }}}
 
 #
-# [ remove configuration ]
-#
-# file /etc/nginx/conf.d/munin.conf {{{
-
-- name: file /etc/nginx/conf.d/munin.conf absent
-  file: path=/etc/nginx/conf.d/munin.conf
-        state=absent
-
-# }}}
-
-#
 # [ call functions ]
 #
 # enable munin-fcgi-graph {{{
 
 - name:    enable munin-fcgi-graph
-  service: name=munin-fcgi-graph enabled=yes state=stopped
+  service: name=munin-fcgi-graph enabled=yes state=started
 
 # }}}
 # enable munin-fcgi-html {{{
 
 - name:    enable munin-fcgi-html
-  service: name=munin-fcgi-html enabled=yes state=stopped
+  service: name=munin-fcgi-html enabled=yes state=started
 
 # }}}
 

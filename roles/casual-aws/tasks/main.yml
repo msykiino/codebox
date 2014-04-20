@@ -1,29 +1,6 @@
 ---
 
 #
-# [ prepare directories ]
-#
-# mkdir /srv {{{
-
-- name: mkdir /srv
-  file: path=/srv
-        owner=root group=root mode=0755 state=directory
-
-# }}}
-
-#
-# [ place configuration for munin ]
-#
-# copy /etc/munin/munin.conf {{{
-
-- name: copy /etc/munin/munin.conf
-  copy: src=munin/munin.conf
-        dest=/etc/munin/munin.conf
-        owner=root group=root mode=0644
-
-# }}}
-
-#
 # [ place configuration for nginx ]
 #
 # copy /etc/nginx/conf.d/default.conf {{{
@@ -38,25 +15,6 @@
 #
 # [ call functions ]
 #
-# restart munin-node {{{
-
-- name:    restart munin-node
-  service: name=munin-node enabled=yes state=restarted
-
-# }}}
-# restart munin-fcgi-graph {{{
-
-- name:    restart munin-fcgi-graph
-  service: name=munin-fcgi-graph enabled=yes state=restarted
-
-# }}}
-# restart munin-fcgi-html {{{
-
-- name:    restart munin-fcgi-html
-  service: name=munin-fcgi-html enabled=yes state=restarted
-
-# }}}
-
 # reload nginx {{{
 
 - name:    reload nginx

@@ -10,8 +10,8 @@
     - inst-jenkins
     - pkg-nginx
     - pkg-goaccess
-    - pkg-munin
     - pkg-munin-node
+    - pkg-munin
     - pkg-munin-nginx
     - casual-aws
 
