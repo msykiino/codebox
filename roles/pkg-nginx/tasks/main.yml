@@ -92,14 +92,6 @@
         owner=root group=root mode=0644
 
 # }}}
-# copy /etc/nginx/conf.d/localhost.conf {{{
-
-- name: copy /etc/nginx/conf.d/localhost.conf
-  copy: src=conf.d/localhost.conf
-        dest=/etc/nginx/conf.d/localhost.conf
-        owner=root group=root mode=0644
-
-# }}}
 # copy srv/html/403.html {{{
 
 - name: copy /srv/html/403.html
