@@ -7,11 +7,11 @@
 
   roles:
     - common
+    - inst-jenkins
     - pkg-nginx
     - pkg-goaccess
     - pkg-munin
     - pkg-munin-node
     - pkg-munin-nginx
-    - inst-jenkins
     - casual-aws
 

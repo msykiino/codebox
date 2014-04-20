@@ -44,7 +44,7 @@
 # enable munin-node {{{
 
 #- name:    enable munin-node
-#  service: name=munin-node enabled=yes state=started
+#  service: name=munin-node enabled=yes state=stopped
 
 # }}}
 
