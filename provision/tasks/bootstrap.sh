@@ -40,6 +40,7 @@ sudo yum -y upgrade
 PACKAGES=`cat <<_EOT_
 git
 ansible
+python-setuptools
 rsync
 _EOT_`
 
