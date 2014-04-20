@@ -15,52 +15,22 @@
 #
 # [ call functions ]
 #
-# reload nginx {{{
+# restart munin-nginx {{{
 
-- name:    reload nginx
-  service: name=nginx enabled=yes state=reloaded
+- name: restart munin-nginx
+  raw:  |
+        sudo service munin-fcgi-graph stop    ;
+        sudo service munin-fcgi-graph restart ;
+        sudo service munin-fcgi-html  stop    ;
+        sudo service munin-fcgi-html  restart ;
 
-# }}}
-
-# stop munin-fcgi-graph {{{
-
-- name:    stop munin-fcgi-graph
-  service: name=munin-fcgi-graph enabled=yes state=stopped
   ignore_errors: yes
 
 # }}}
-# stop munin-fcgi-graph {{{
+# restart nginx {{{
 
-- name:    stop munin-fcgi-graph
-  service: name=munin-fcgi-graph enabled=yes state=stopped
-  ignore_errors: yes
-
-# }}}
-# restart munin-fcgi-graph {{{
-
-- name:    restart munin-fcgi-graph
-  service: name=munin-fcgi-graph enabled=yes state=restarted
-
-# }}}
-
-# stop munin-fcgi-html {{{
-
-- name:    stop munin-fcgi-html
-  service: name=munin-fcgi-html enabled=yes state=stopped
-  ignore_errors: yes
-
-# }}}
-# stop munin-fcgi-html {{{
-
-- name:    stop munin-fcgi-html
-  service: name=munin-fcgi-html enabled=yes state=stopped
-  ignore_errors: yes
-
-# }}}
-# restart munin-fcgi-html {{{
-
-- name:    restart munin-fcgi-html
-  service: name=munin-fcgi-html enabled=yes state=restarted
+- name:    restart nginx
+  service: name=nginx enabled=yes state=restarted
 
 # }}}
 
