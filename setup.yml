@@ -9,9 +9,9 @@
     - common
     - pkg-nginx
     - pkg-goaccess
-    - inst-jenkins
     - pkg-munin
-    - pkg-munin-nginx
     - pkg-munin-node
+    - pkg-munin-nginx
+    - inst-jenkins
     - casual-aws
 
