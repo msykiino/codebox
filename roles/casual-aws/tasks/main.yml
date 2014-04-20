@@ -26,12 +26,14 @@
 
 - name:    stop munin-fcgi-graph
   service: name=munin-fcgi-graph enabled=yes state=stopped
+  ignore_errors: yes
 
 # }}}
 # stop munin-fcgi-graph {{{
 
 - name:    stop munin-fcgi-graph
   service: name=munin-fcgi-graph enabled=yes state=stopped
+  ignore_errors: yes
 
 # }}}
 # restart munin-fcgi-graph {{{
@@ -45,12 +47,14 @@
 
 - name:    stop munin-fcgi-html
   service: name=munin-fcgi-html enabled=yes state=stoppped
+  ignore_errors: yes
 
 # }}}
 # stop munin-fcgi-html {{{
 
 - name:    stop munin-fcgi-html
   service: name=munin-fcgi-html enabled=yes state=stoppped
+  ignore_errors: yes
 
 # }}}
 # restart munin-fcgi-html {{{
