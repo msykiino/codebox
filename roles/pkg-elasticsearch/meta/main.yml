@@ -1,0 +1,4 @@
+---
+
+dependencies:
+  - {role: pkg-openjdk-1.7.0}

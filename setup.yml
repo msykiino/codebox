@@ -1,0 +1,14 @@
+---
+
+- hosts: self
+  gather_facts: False
+  sudo:  True
+  connection: local
+
+  roles:
+    - common
+    - pkg-nginx
+    - pkg-goaccess
+    - pkg-elasticsearch
+    - casual-do
+

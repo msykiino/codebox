@@ -1,0 +1,60 @@
+---
+
+#
+# [ install elasticsearch ]
+#
+# install elasticsearch {{{
+
+- name: ensure elasticsearch is present
+  yum:  name=https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.1.1.noarch.rpm state=present
+
+# }}}
+
+#
+# [ install elasticsearch plugins ]
+#
+# install analysis-kuromoji plugin {{{
+
+#- name:    install analysis-kuromoji
+#  command: /usr/share/elasticsearch/bin/plugin --install elasticsearch/elasticsearch-analysis-kuromoji/2.1.0
+#           creates=/usr/share/elasticsearch/plugins/analysis-kuromoji
+
+# }}}
+# install bigdesk plugin {{{
+
+- name:    install bigdesk plugin
+  command: /usr/share/elasticsearch/bin/plugin --install lukas-vlcek/bigdesk
+           creates=/usr/share/elasticsearch/plugins/bigdesk
+
+# }}}
+# install head plugin {{{
+
+- name:    install head plugin
+  command: /usr/share/elasticsearch/bin/plugin --install mobz/elasticsearch-head
+           creates=/usr/share/elasticsearch/plugins/head
+
+# }}}
+# install marvel plugin {{{
+
+- name:    install marvel plugin
+  command: /usr/share/elasticsearch/bin/plugin --install elasticsearch/marvel/latest
+           creates=/usr/share/elasticsearch/plugins/marvel
+
+# }}}
+
+#
+# [ call functions ]
+#
+# start   elasticsearch {{{
+
+- name:    start elasticsearch
+  service: name=elasticsearch enabled=yes state=started
+
+# }}}
+# restart elasticsearch {{{
+
+- name:    restart elasticsearch
+  service: name=elasticsearch enabled=yes state=restarted
+
+# }}}
+

@@ -1,0 +1,52 @@
+---
+
+#
+# [ update base packages ]
+#
+# yum update package database {{{
+
+- name:    yum check-update
+  command: yum check-update
+  ignore_errors: yes
+
+# }}}
+# yum update {{{
+
+- name:    yum update
+  command: yum -y update
+
+# }}}
+
+#
+# [ install packages ]
+#
+# install packages {{{
+
+- name: ensure packages are present
+  yum:  name={{ item }} enablerepo=epel state=present
+  with_items:
+    - bash-completion
+    - bzip2
+    - git
+    - glances
+    - htop
+    - ncurses
+    - ncurses-devel
+    - openssl
+    - openssl-devel
+    - readline
+    - readline-devel
+    - rsync
+    - tree
+    - unzip
+    - vim
+    - w3m
+    - wget
+    - yum-plugin-fastestmirror
+    - yum-plugin-priorities
+    - zip
+    - zlib
+    - zlib-devel
+
+# }}}
+

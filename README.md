@@ -1,4 +1,4 @@
-codebox
-=======
+# Sample ansible playbooks for DigitalOcean
 
-Code samples for Blog posts
+-----
+
