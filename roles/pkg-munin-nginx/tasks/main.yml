@@ -26,3 +26,13 @@
 
 # }}}
 
+# rm /var/run/munin/fcgi-* {{{
+
+- name: rm var/run/munin/fcgi-*
+  raw:  |
+        test -d /var/run/munin && sudo rm -f /var/run/munin/fcgi-* >/dev/null 2>&1 ;
+
+  ignore_errors: yes
+
+# }}}
+
