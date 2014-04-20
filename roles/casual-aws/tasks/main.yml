@@ -19,9 +19,15 @@
 
 - name: restart munin-nginx
   raw:  |
+        sleep 30 ;
         sudo service munin-fcgi-graph stop    ;
-        sudo service munin-fcgi-graph restart ;
+        sudo service munin-fcgi-graph stop    ;
         sudo service munin-fcgi-html  stop    ;
+        sudo service munin-fcgi-html  stop    ;
+        sleep 30 ;
+        sudo service munin-fcgi-graph restart ;
+        sudo service munin-fcgi-graph restart ;
+        sudo service munin-fcgi-html  restart ;
         sudo service munin-fcgi-html  restart ;
 
   ignore_errors: yes
