@@ -15,17 +15,6 @@
 #
 # [ call functions ]
 #
-# restart munin-nginx {{{
-
-- name: restart munin-nginx
-  raw:  |
-        sleep 30 ;
-        sudo service munin-fcgi-graph restart ;
-        sudo service munin-fcgi-html  restart ;
-
-  ignore_errors: yes
-
-# }}}
 # reload nginx {{{
 
 - name:    reload nginx
