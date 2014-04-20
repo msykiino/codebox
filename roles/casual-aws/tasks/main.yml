@@ -18,13 +18,13 @@
 # restart munin-fcgi-graph {{{
 
 - name:    restart munin-fcgi-graph
-  service: name=munin-fcgi-graph enabled=yes state=restarted time=10
+  service: name=munin-fcgi-graph enabled=yes state=restarted sleep=10
 
 # }}}
 # restart munin-fcgi-html {{{
 
 - name:    restart munin-fcgi-html
-  service: name=munin-fcgi-html enabled=yes state=restarted time=10
+  service: name=munin-fcgi-html enabled=yes state=restarted sleep=10
 
 # }}}
 
