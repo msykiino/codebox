@@ -15,16 +15,28 @@
 #
 # [ call functions ]
 #
+# stop  munin-fcgi-graph {{{
+
+- name:    stop munin-fcgi-graph
+  service: name=munin-fcgi-graph enabled=yes state=stopped
+
+# }}}
+# stop  munin-fcgi-html {{{
+
+- name:    stop munin-fcgi-html
+  service: name=munin-fcgi-html enabled=yes state=stopped
+
+# }}}
 # restart munin-fcgi-graph {{{
 
 - name:    restart munin-fcgi-graph
-  service: name=munin-fcgi-graph enabled=yes state=restarted sleep=10
+  service: name=munin-fcgi-graph enabled=yes state=restarted
 
 # }}}
 # restart munin-fcgi-html {{{
 
 - name:    restart munin-fcgi-html
-  service: name=munin-fcgi-html enabled=yes state=restarted sleep=10
+  service: name=munin-fcgi-html enabled=yes state=restarted
 
 # }}}
 
