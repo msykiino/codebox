@@ -46,14 +46,14 @@
 # stop munin-fcgi-html {{{
 
 - name:    stop munin-fcgi-html
-  service: name=munin-fcgi-html enabled=yes state=stoppped
+  service: name=munin-fcgi-html enabled=yes state=stopped
   ignore_errors: yes
 
 # }}}
 # stop munin-fcgi-html {{{
 
 - name:    stop munin-fcgi-html
-  service: name=munin-fcgi-html enabled=yes state=stoppped
+  service: name=munin-fcgi-html enabled=yes state=stopped
   ignore_errors: yes
 
 # }}}
