@@ -14,6 +14,7 @@
 .DS_Store
 .env
 .svn
+.vagrant
 .vim/.netrwhist
 .vim/bundle
 .vim/plugin/
