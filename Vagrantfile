@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     provider.client_id            = ENV['DO_CLIENT_ID']
     provider.api_key              = ENV['DO_API_KEY']
-    provider.ssh_key_name         = "Vagrant"
+    provider.ssh_key_name         = "vagrant"
     provider.region               = "Singapore 1"
     provider.image                = "CentOS 6.5 x64"
     provider.size                 = "512MB" # 512MB | 1GB | 2GB | 4GB | 8GB | 16GB 
