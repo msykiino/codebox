@@ -11,9 +11,9 @@ ALIAS_TO="ansible"
 # downgrade packages {{{
 
 # https://forums.aws.amazon.com/thread.jspa?threadID=150273&tstart=0
-curl_version=`curl --version | cut -d " " -f 2 | head -n 1`
-echo $curl_version | grep ^"7.36" >/dev/null 2>&1
-test $? -eq 0 && sudo yum -y downgrade curl libcurl libcurl-devel
+#curl_version=`curl --version | cut -d " " -f 2 | head -n 1`
+#echo $curl_version | grep ^"7.36" >/dev/null 2>&1
+#test $? -eq 0 && sudo yum -y downgrade curl libcurl libcurl-devel
 
 # }}}
 # git clone {{{
