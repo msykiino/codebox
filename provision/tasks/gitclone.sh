@@ -39,6 +39,7 @@ fi
 
 cd ~/$ALIAS_TO
 ansible-playbook setup.yml -i hosts --connection=local -s -v
+ansible-playbook restart-munin-nginx.yml -i hosts --connection=local -s -v
 
 # }}}
 
