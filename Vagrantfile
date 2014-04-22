@@ -28,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     provider.ca_path              = "/usr/local/share/ca-bundle.crt"
     provider.setup                = true
 
-    # disable synced_folder: rsync is not installed on DigitalOcean's guest machine
+    # disable synced_folder: rsync is not installed on DigitalOcean's base image
     override.vm.synced_folder "./", "/vagrant", disabled: true
 
     # provision
