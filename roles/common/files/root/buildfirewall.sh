@@ -63,10 +63,8 @@ $iptables -A INPUT -d 0.0.0.255       -j DROP
 # 外部とのNetBIOSのアクセスはログを記録せずに破棄
 for i in 135 137 138 139 445
 do
-  $iptables -A INPUT  -p tcp --dport $i -j DROP
-  $iptables -A INPUT  -p udp --dport $i -j DROP
-  $iptables -A OUTPUT -p tcp --sport $i -j DROP
-  $iptables -A OUTPUT -p udp --sport $i -j DROP
+  $iptables -A INPUT  --dport $i -j DROP
+  $iptables -A OUTPUT --sport $i -j DROP
 done
 
 # フラグメント化されたパケットはログを記録して破棄
