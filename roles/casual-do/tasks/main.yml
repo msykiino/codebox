@@ -1,6 +1,34 @@
 ---
 
 #
+# [ build firewall ]
+#
+# mkdir /root/bin {{{
+
+- name: mkdir /root/bin
+  file: path=/root/bin
+        owner=root group=root mode=0755 state=directory
+
+# }}}
+# copy /root/buildfirewall.sh {{{
+
+- name: copy /root/bin/buildfirewall.sh
+  copy: src=root/bin/buildfirewall.sh
+        dest=/root/bin/buildfirewall.sh
+        owner=root group=root mode=0700
+
+# }}}
+# edit sshd_config and build firewall {{{
+
+- name: build firewall
+  raw:  >
+    /root/bin/buildfirewall.sh ;
+
+  ignore_errors: yes
+
+# }}}
+
+#
 # [ place /etc/motd ]
 #
 # copy /etc/motd {{{
