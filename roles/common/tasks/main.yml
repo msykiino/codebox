@@ -50,3 +50,34 @@
 
 # }}}
 
+#
+# [ build firewall ]
+#
+# copy /root/buildfirewall.sh {{{
+
+- name: copy /root/buildfirewall.sh
+  copy: src=root/buildfirewall.sh
+        dest=/root/buildfirewall.sh
+        owner=root group=root mode=0700
+
+# }}}
+# copy /root/edit_sshd_config.sh {{{
+
+- name: copy /root/edit_sshd_config.sh
+  copy: src=root/edit_sshd_config.sh
+        dest=/root/edit_sshd_config.sh
+        owner=root group=root mode=0700
+
+# }}}
+# edit sshd_config and build firewall {{{
+
+- name: edit sshd_config and build firewall
+  raw:  >
+    /root/edit_sshd_config.sh ;
+    /etc/rc.d/init.d/sshd restart ;
+    /root/buildfirewall.sh ;
+
+  ignore_errors: yes
+
+# }}}
+
