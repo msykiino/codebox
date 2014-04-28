@@ -18,6 +18,18 @@
 # }}}
 
 #
+# [ add repositories ]
+#
+# place additional yum repositories {{{
+
+- name: place additional yum repositories
+  copy: src=yum.repos.d/{{ item }} dest=/etc/yum.repos.d/{{ item }} owner=root group=root mode=0644
+  with_items:
+    - nginx.repo
+
+# }}}
+
+#
 # [ install packages ]
 #
 # install packages {{{

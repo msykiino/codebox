@@ -6,7 +6,7 @@
 # install nginx {{{
 
 - name: ensure nginx is present
-  yum:  name=nginx state=present
+  yum:  name=nginx enablerepo=nginx disablerepo=epel state=present
 
 # }}}
 
