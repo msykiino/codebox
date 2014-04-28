@@ -5,8 +5,14 @@
 #
 # install nginx {{{
 
+#- name: ensure nginx is present
+#  yum:  name=nginx state=present
+
+# }}}
+# install nginx {{{
+
 - name: ensure nginx is present
-  yum:  name=nginx state=present
+  yum:  name=nginx enablerepo=nginx disablerepo=amzn-main,epel state=present
 
 # }}}
 
