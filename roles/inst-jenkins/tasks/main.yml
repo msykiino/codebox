@@ -58,20 +58,6 @@
         owner={{ jenkins_user }} group={{ jenkins_group }} mode=0755 state=directory
 
 # }}}
-# mkdir /var/lib/jenkins {{{
-
-- name: mkdir /var/lib/jenkins
-  file: path={{ jenkins_home }}
-        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0755 state=directory
-
-# }}}
-# mkdir /usr/lib/jenkins {{{
-
-- name: mkdir /usr/lib/jenkins
-  file: path=/usr/lib/jenkins
-        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0755 state=directory
-
-# }}}
 # mkdir /var/cache/jenkins {{{
 
 - name: mkdir /var/cache/jenkins
@@ -84,6 +70,13 @@
 - name: mkdir /var/cache/jenkins/war
   file: path=/var/cache/jenkins/war
         owner={{ jenkins_user }} group={{ jenkins_group }} mode=0775 state=directory
+
+# }}}
+# mkdir /var/lib/jenkins {{{
+
+- name: mkdir /var/lib/jenkins
+  file: path={{ jenkins_home }}
+        owner={{ jenkins_user }} group={{ jenkins_group }} mode=0755 state=directory
 
 # }}}
 # mkdir /var/log/jenkins {{{
