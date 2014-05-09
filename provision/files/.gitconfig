@@ -1,0 +1,21 @@
+[user]
+    email = anonymous@localhost
+    name  = anonymous
+
+[alias]
+    br = branch
+    ci = commit
+    co = checkout
+    st = status
+
+[color]
+    branch      = auto
+    diff        = auto
+    grep        = auto
+    interactive = auto
+    status      = auto
+    ui          = auto
+
+[http]
+    sslVerify = false
+
