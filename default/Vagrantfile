@@ -31,14 +31,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     #override.vm.synced_folder "./", "/vagrant", disabled: true
 
     # provision
-    override.vm.provision :file,  source: "./provision/files/.ssh/config", destination: "/home/#{ENV['VB_SSH_USERNAME']}/.ssh/config"
-    override.vm.provision :file,  source: "./provision/files/.gitconfig",  destination: "/home/#{ENV['VB_SSH_USERNAME']}/.gitconfig"
-    override.vm.provision :file,  source: "./provision/tasks/gitclone.sh", destination: "/tmp/gitclone.sh"
+    override.vm.provision :file,  source: "./provision/files/.ssh/config",  destination: "/home/#{ENV['VB_SSH_USERNAME']}/.ssh/config"
+    override.vm.provision :file,  source: "./provision/files/.gitconfig",   destination: "/home/#{ENV['VB_SSH_USERNAME']}/.gitconfig"
+    override.vm.provision :file,  source: "./provision/tasks/clonerepo.sh", destination: "/tmp/clonerepo.sh"
 
     override.vm.provision :shell, inline: "chmod 700 /home/#{ENV['VB_SSH_USERNAME']}/.ssh"
     override.vm.provision :shell, inline: "chmod 600 /home/#{ENV['VB_SSH_USERNAME']}/.ssh/config"
     override.vm.provision :shell, inline: "chmod 644 /home/#{ENV['VB_SSH_USERNAME']}/.gitconfig"
-    override.vm.provision :shell, inline: "chmod 755 /tmp/gitclone.sh"
+    override.vm.provision :shell, inline: "chmod 755 /tmp/clonerepo.sh"
 
     override.vm.provision :shell, path: "./provision/tasks/bootstrap.sh", args: [ENV['VB_SSH_USERNAME'], "virtualbox", ENV['PLAYBOOK']]
   end
@@ -100,14 +100,14 @@ chmod 440 /etc/sudoers.d/vagrant-init
     override.vm.synced_folder "./", "/vagrant", disabled: true
 
     # provision
-    override.vm.provision :file,  source: "./provision/files/.ssh/config", destination: "/home/#{ENV['AWS_SSH_USERNAME']}/.ssh/config"
-    override.vm.provision :file,  source: "./provision/files/.gitconfig",  destination: "/home/#{ENV['AWS_SSH_USERNAME']}/.gitconfig"
-    override.vm.provision :file,  source: "./provision/tasks/gitclone.sh", destination: "/tmp/gitclone.sh"
+    override.vm.provision :file,  source: "./provision/files/.ssh/config",  destination: "/home/#{ENV['AWS_SSH_USERNAME']}/.ssh/config"
+    override.vm.provision :file,  source: "./provision/files/.gitconfig",   destination: "/home/#{ENV['AWS_SSH_USERNAME']}/.gitconfig"
+    override.vm.provision :file,  source: "./provision/tasks/clonerepo.sh", destination: "/tmp/clonerepo.sh"
 
     override.vm.provision :shell, inline: "chmod 700 /home/#{ENV['AWS_SSH_USERNAME']}/.ssh"
     override.vm.provision :shell, inline: "chmod 600 /home/#{ENV['AWS_SSH_USERNAME']}/.ssh/config"
     override.vm.provision :shell, inline: "chmod 644 /home/#{ENV['AWS_SSH_USERNAME']}/.gitconfig"
-    override.vm.provision :shell, inline: "chmod 755 /tmp/gitclone.sh"
+    override.vm.provision :shell, inline: "chmod 755 /tmp/clonerepo.sh"
 
     override.vm.provision :shell, path: "./provision/tasks/bootstrap.sh", args: [ENV['AWS_SSH_USERNAME'], "aws", ENV['PLAYBOOK']]
   end
@@ -136,14 +136,14 @@ chmod 440 /etc/sudoers.d/vagrant-init
     override.vm.synced_folder "./", "/vagrant", disabled: true
 
     # provision
-    override.vm.provision :file,  source: "./provision/files/.ssh/config", destination: "/home/#{ENV['DO_SSH_USERNAME']}/.ssh/config"
-    override.vm.provision :file,  source: "./provision/files/.gitconfig",  destination: "/home/#{ENV['DO_SSH_USERNAME']}/.gitconfig"
-    override.vm.provision :file,  source: "./provision/tasks/gitclone.sh", destination: "/tmp/gitclone.sh"
+    override.vm.provision :file,  source: "./provision/files/.ssh/config",  destination: "/home/#{ENV['DO_SSH_USERNAME']}/.ssh/config"
+    override.vm.provision :file,  source: "./provision/files/.gitconfig",   destination: "/home/#{ENV['DO_SSH_USERNAME']}/.gitconfig"
+    override.vm.provision :file,  source: "./provision/tasks/clonerepo.sh", destination: "/tmp/clonerepo.sh"
 
     override.vm.provision :shell, inline: "chmod 700 /home/#{ENV['DO_SSH_USERNAME']}/.ssh"
     override.vm.provision :shell, inline: "chmod 600 /home/#{ENV['DO_SSH_USERNAME']}/.ssh/config"
     override.vm.provision :shell, inline: "chmod 644 /home/#{ENV['DO_SSH_USERNAME']}/.gitconfig"
-    override.vm.provision :shell, inline: "chmod 755 /tmp/gitclone.sh"
+    override.vm.provision :shell, inline: "chmod 755 /tmp/clonerepo.sh"
 
     override.vm.provision :shell, path: "./provision/tasks/bootstrap.sh", args: [ENV['DO_SSH_USERNAME'], "digitalocean", ENV['PLAYBOOK']]
   end

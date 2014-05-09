@@ -57,7 +57,7 @@ done
 
 if [ $PLATFORM -a $PLAYBOOK ];
 then
-  (sudo -u $USERNAME /bin/bash /tmp/gitclone.sh $PLATFORM $PLAYBOOK && rm -f /tmp/gitclone.sh)
+  (sudo -u $USERNAME /bin/bash /tmp/clonerepo.sh $PLATFORM $PLAYBOOK && rm -f /tmp/clonerepo.sh)
 else
   echo -e "\nskip: PLATFORM or PLAYBOOK to run is (or are both) not specified.\n"
 fi
