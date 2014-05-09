@@ -1,0 +1,17 @@
+---
+
+- hosts: self
+  gather_facts: False
+  sudo:  True
+  connection: local
+  vars_files:
+    - "vars/common.yml"
+    - "vars/vars_{{ platform }}.yml"
+
+  roles:
+    - common
+    - pkg-nginx
+    - pkg-goaccess
+    - pkg-gitbucket
+    - run-gitbucket
+

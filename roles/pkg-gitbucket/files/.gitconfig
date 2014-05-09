@@ -1,0 +1,13 @@
+[user]
+  email = jenkins@localhost
+  name  = jenkins
+
+[alias]
+  br = branch
+  ci = commit
+  co = checkout
+  st = status
+
+[color]
+  ui = true
+

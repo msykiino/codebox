@@ -1,0 +1,7 @@
+gitbucket_fetch: https://github.com/takezoe/gitbucket/releases/download/1.13/gitbucket.war
+gitbucket_uid:   504
+gitbucket_gid:   504
+gitbucket_user:  gitbucket
+gitbucket_group: gitbucket
+gitbucket_home:  /var/lib/gitbucket
+gitbucket_war:   /usr/share/gitbucket/lib/gitbucket.war

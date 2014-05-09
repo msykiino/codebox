@@ -1,0 +1,93 @@
+---
+
+#
+# [ useradd gitbucket ]
+#
+# groupadd gitbucket {{{
+
+- name:  groupadd gitbucket
+  group: name={{ gitbucket_group }} gid={{ gitbucket_gid }} state=present
+
+# }}}
+# useradd gitbucket {{{
+
+- name: useradd gitbucket
+  user: name={{ gitbucket_user }} uid={{ gitbucket_uid }} group={{ gitbucket_group }}
+        createhome=yes home={{ gitbucket_home }} shell="/bin/false" state=present
+
+# }}}
+
+#
+# [ install gitbucket ]
+#
+# mkdir /usr/share/gitbucket {{{
+
+- name: mkdir /usr/share/gitbucket
+  file: path="/usr/share/gitbucket"
+        owner={{ gitbucket_user }} group={{gitbucket_group }} mode=0755 state=directory
+
+# }}}
+# mkdir /usr/share/gitbucket/lib {{{
+
+- name: mkdir /usr/share/gitbucket/lib
+  file: path="/usr/share/gitbucket/lib"
+        owner={{ gitbucket_user }} group={{gitbucket_group }} mode=0755 state=directory
+
+# }}}
+# mkdir /var/lib/gitbucket {{{
+
+- name: mkdir /var/lib/gitbucket
+  file: path=/var/lib/gitbucket
+        owner={{ gitbucket_user }} group={{gitbucket_group }} mode=0755 state=directory
+
+# }}}
+# mkdir /var/log/gitbucket {{{
+
+- name: mkdir /var/log/gitbucket
+  file: path=/var/log/gitbucket
+        owner={{ gitbucket_user }} group={{gitbucket_group }} mode=0775 state=directory
+
+# }}}
+# copy /etc/gitbucket.conf {{{
+
+- name: copy /etc/gitbucket.conf
+  copy: src=etc/gitbucket.conf
+        dest=/etc/gitbucket.conf
+        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/rc.d/init.d/gitbucket {{{
+
+- name: copy /etc/rc.d/init.d/gitbucket
+  copy: src=etc/rc.d/init.d/gitbucket
+        dest=/etc/rc.d/init.d/gitbucket
+        owner=root group=root mode=0755
+
+# }}}
+# copy /etc/sysconfig/gitbucket {{{
+
+- name: copy /etc/sysconfig/gitbucket
+  copy: src=etc/sysconfig/gitbucket
+        dest=/etc/sysconfig/gitbucket
+        owner=root group=root mode=0644
+
+# }}}
+# download gitbucket.war {{{
+
+- name:    download gitbucket.war
+  get_url: url={{ gitbucket_fetch }} dest="/usr/share/gitbucket/lib/gitbucket.war"
+           owner={{ gitbucket_user }} group={{gitbucket_group }} mode=0644
+
+# }}}
+
+#
+# [ call functions ]
+#
+# enable gitbucket {{{
+
+- name:    enable gitbucket
+  service: name=gitbucket enabled=yes state=started
+  ignore_errors: yes
+
+# }}}
+

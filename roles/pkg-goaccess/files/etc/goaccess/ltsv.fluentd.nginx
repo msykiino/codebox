@@ -1,0 +1,3 @@
+color_scheme 2
+date_format %F
+log_format %dT%^\t%^\t"{host":"%h","user":"%^","req":"%r","status":%s,"size":%b,"referer":"%R","ua":"%u","forwardedfor":"%^","reqtime":%T,"apptime":%^}

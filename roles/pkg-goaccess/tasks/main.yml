@@ -1,0 +1,65 @@
+---
+
+#
+# [ install goaccess ]
+#
+# install GeoIP {{{
+
+- name: ensure GeoIP and GeoIP-devel are present
+# yum:  name={{ item }} enablerepo=epel state=present
+  yum:  name={{ item }} state=present
+  with_items:
+    - GeoIP
+    - GeoIP-devel
+    
+# }}}
+# install goaccess {{{
+
+- name: ensure goaccess is present
+  yum:  name=goaccess enablerepo=epel state=present
+
+# }}}
+
+#
+# [ place configuration files ]
+#
+# mkdir /etc/goaccess {{{
+
+- name: mkdir /etc/goaccess
+  file: path=/etc/goaccess
+        owner=root group=root mode=0755 state=directory
+
+# }}}
+# copy /etc/goaccess/ltsv.fluentd.httpd {{{
+
+- name: copy /etc/goaccess/ltsv.fluentd.httpd
+  copy: src=etc/goaccess/ltsv.fluentd.httpd
+        dest=/etc/goaccess/ltsv.fluentd.httpd
+        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/goaccess/ltsv.fluentd.nginx {{{
+
+- name: copy /etc/goaccess/ltsv.fluentd.nginx
+  copy: src=etc/goaccess/ltsv.fluentd.nginx
+        dest=/etc/goaccess/ltsv.fluentd.nginx
+        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/goaccess/ltsv.httpd {{{
+
+- name: copy /etc/goaccess/ltsv.httpd
+  copy: src=etc/goaccess/ltsv.httpd
+        dest=/etc/goaccess/ltsv.httpd
+        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/goaccess/ltsv.nginx {{{
+
+- name: copy /etc/goaccess/ltsv.nginx
+  copy: src=etc/goaccess/ltsv.nginx
+        dest=/etc/goaccess/ltsv.nginx
+        owner=root group=root mode=0644
+
+# }}}
+

@@ -1,0 +1,128 @@
+#!/bin/bash
+#
+# /etc/rc.d/init.d/gitbucket
+#
+# Starts the GitBucket server
+#
+# chkconfig: 345 60 40
+# description: Run GitBucket server
+# processname: java
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Default values
+GITBUCKET_HOME=/var/lib/gitbucket
+GITBUCKET_WAR_FILE=/usr/share/gitbucket/lib/gitbucket.war
+
+# Check for existence of needed config file and read it
+#GITBUCKET_CONFIG=/etc/sysconfig/gitbucket
+GITBUCKET_CONFIG=/etc/gitbucket.conf
+
+# Pull in cq settings
+[ -f $GITBUCKET_CONFIG ] && . $GITBUCKET_CONFIG
+GITBUCKET_USER=${GITBUCKET_USER:-"root"}
+
+# Location of the log and PID file
+LOG_FILE=/var/log/gitbucket/run.log
+PID_FILE=/var/run/gitbucket.pid
+
+# For SELinux we need to use 'runuser' not 'su'
+SU="/bin/su -s /bin/sh"
+test -x "/sbin/runuser" && SU="/sbin/runuser -s /bin/sh"
+
+# Default return value
+RETVAL=0
+
+
+start() {
+	echo -n $"Starting GitBucket server: "
+
+	# check if GitBucket is already running
+	test -f $PID_FILE && test -d /proc/$(cat $PID_FILE) && echo " GitBucket is already running (pid  $(cat $PID_FILE))" && return $?
+
+	# Compile statup parameters
+	if [ $GITBUCKET_PORT ]; then
+		START_OPTS="$START_OPTS --port=$GITBUCKET_PORT"
+	fi
+	if [ $GITBUCKET_PREFIX ]; then
+		START_OPTS="$START_OPTS --prefix=$GITBUCKET_PREFIX"
+	fi
+	if [ $GITBUCKET_HOST ]; then
+		START_OPTS="$START_OPTS --host=$GITBUCKET_HOST"
+	fi
+
+	# Run the Java process
+	#GITBUCKET_HOME="$GITBUCKET_HOME" java $GITBUCKET_JVM_OPTS -jar $GITBUCKET_WAR_FILE $START_OPTS >>$LOG_FILE 2>&1 &
+	#$SU - $GITBUCKET_USER -c "GITBUCKET_HOME=$GITBUCKET_HOME java $GITBUCKET_JVM_OPTS -jar $GITBUCKET_WAR_FILE $START_OPTS &" >>$LOG_FILE 2>&1
+	$SU - $GITBUCKET_USER -c "GITBUCKET_HOME=$GITBUCKET_HOME java $GITBUCKET_JVM_OPTS -jar $GITBUCKET_WAR_FILE $START_OPTS" >>$LOG_FILE 2>&1 &
+	RETVAL=$?
+
+	# Wait till Java master process comes up
+	sleep 1
+
+	# Store PID of the Java master process into a file
+	#echo $! > $PID_FILE
+	echo $(pgrep -P $!) > $PID_FILE && kill -KILL $! 2>/dev/null
+
+	if [ $RETVAL -eq 0 ] ; then
+		success "GitBucket startup"
+	else
+		failure "GitBucket startup"
+	fi
+
+	echo
+	return $RETVAL
+}
+
+
+stop() {
+	echo -n $"Stopping GitBucket server: "
+
+	# Run the Java process
+	kill $(cat $PID_FILE 2>/dev/null) >>$LOG_FILE 2>&1
+	RETVAL=$?
+
+	if [ $RETVAL -eq 0 ] ; then
+		rm -f $PID_FILE
+		success "GitBucket stopping"
+	else
+		failure "GitBucket stopping"
+	fi
+
+  if [ ! "$(cat $PID_FILE 2>/dev/null)" ] ; then
+		rm -f $PID_FILE 2>/dev/null
+	fi
+
+	echo
+	return $RETVAL
+}
+
+
+restart() {
+	stop
+	start
+}
+
+
+case "$1" in
+start)
+	start
+	;;
+stop)
+	stop
+	;;
+restart)
+	restart
+	;;
+status)
+	status -p $PID_FILE java
+	RETVAL=$?
+	;;
+*)
+	echo $"Usage: $0 [start|stop|restart|status]"
+	RETVAL=2
+esac
+
+
+exit $RETVAL

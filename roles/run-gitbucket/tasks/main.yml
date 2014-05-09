@@ -1,0 +1,88 @@
+---
+
+#
+# [ build firewall ]
+#
+# mkdir /root/bin {{{
+
+- name: mkdir /root/bin
+  file: path=/root/bin
+        owner=root group=root mode=0755 state=directory
+  when: platform not in ['aws']
+
+# }}}
+# template /root/buildfirewall.sh {{{
+
+- name:     template /root/bin/buildfirewall.sh
+  template: src=root/bin/buildfirewall.sh.j2
+            dest=/root/bin/buildfirewall.sh
+            owner=root group=root mode=0700
+  when: platform not in ['aws']
+
+# }}}
+# build firewall {{{
+
+- name: build firewall
+  raw:  >
+    /root/bin/buildfirewall.sh ;
+
+  when: platform not in ['aws']
+  ignore_errors: yes
+
+# }}}
+
+#
+# [ place configuration for nginx ]
+#
+# copy /etc/nginx/conf.d/gitbucket.conf {{{
+
+- name: copy /etc/nginx/conf.d/gitbucket.conf
+  copy: src=etc/nginx/conf.d/gitbucket.conf
+        dest=/etc/nginx/conf.d/gitbucket.conf
+        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/nginx/conf.d/gitbucket-ssl.conf {{{
+
+- name: copy /etc/nginx/conf.d/gitbucket-ssl.conf
+  copy: src=etc/nginx/conf.d/gitbucket-ssl.conf
+        dest=/etc/nginx/conf.d/gitbucket-ssl.conf
+        owner=root group=root mode=0644
+
+# }}}
+# mkdir /etc/nginx/ssl {{{
+
+- name: mkdir /etc/nginx/ssl
+  file: path=/etc/nginx/ssl
+        owner=root group=root mode=2775 state=directory
+
+# }}}
+# copy /etc/nginx/ssl/server.crt {{{
+
+- name: copy /etc/nginx/ssl/server.crt
+  copy: src=etc/nginx/ssl/server.crt
+        dest=/etc/nginx/ssl/server.crt
+        owner=root group=root mode=0644
+  #when: stage in ['production']
+
+# }}}
+# copy /etc/nginx/ssl/server.nokey {{{
+
+- name: copy /etc/nginx/ssl/server.nokey
+  copy: src=etc/nginx/ssl/server.nokey
+        dest=/etc/nginx/ssl/server.nokey
+        owner=root group=root mode=0644
+  #when: stage in ['production']
+
+# }}}
+
+#
+# [ call functions ]
+#
+# restart nginx {{{
+
+- name:    restart nginx
+  service: name=nginx enabled=yes state=restarted
+
+# }}}
+

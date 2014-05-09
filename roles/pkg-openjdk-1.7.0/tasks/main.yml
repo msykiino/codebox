@@ -1,0 +1,15 @@
+---
+
+#
+# [ install openjdk-1.7.0 ]
+#
+# install java-1.7.0-openjdk packages {{{
+
+- name: ensure java-1.7.0-openjdk and devel packages are present
+  yum:  name={{ item }} state=present
+  with_items:
+    - java-1.7.0-openjdk
+    - java-1.7.0-openjdk-devel
+
+# }}}
+

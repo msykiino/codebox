@@ -1,0 +1,140 @@
+---
+
+#
+# [ build firewall ]
+#
+# mkdir /root/bin {{{
+
+- name: mkdir /root/bin
+  file: path=/root/bin
+        owner=root group=root mode=0755 state=directory
+  when: platform not in ['aws']
+
+# }}}
+# template /root/buildfirewall.sh {{{
+
+- name:     template /root/bin/buildfirewall.sh
+  template: src=root/bin/buildfirewall.sh.j2
+            dest=/root/bin/buildfirewall.sh
+            owner=root group=root mode=0700
+  when: platform not in ['aws']
+
+# }}}
+# build firewall {{{
+
+- name: build firewall
+  raw:  >
+    /root/bin/buildfirewall.sh ;
+
+  when: platform not in ['aws']
+  ignore_errors: yes
+
+# }}}
+
+#
+# [ edit sshd_config ]
+#
+# mkdir /root/bin {{{
+
+- name: mkdir /root/bin
+  file: path=/root/bin
+        owner=root group=root mode=0755 state=directory
+  when: platform not in ['aws']
+
+# }}}
+# copy /root/bin/edit_sshd_config.sh {{{
+
+- name: copy /root/bin/edit_sshd_config.sh
+  copy: src=root/bin/edit_sshd_config.sh
+        dest=/root/bin/edit_sshd_config.sh
+        owner=root group=root mode=0700
+  when: platform not in ['aws']
+
+# }}}
+# edit sshd_config {{{
+
+- name: edit sshd_config
+  raw:  >
+    /root/bin/edit_sshd_config.sh ;
+    /etc/rc.d/init.d/sshd reload  ;
+
+  when: platform not in ['aws']
+  ignore_errors: yes
+
+# }}}
+
+#
+# [ place /etc/motd ]
+#
+# copy /etc/motd {{{
+
+- name: copy /etc/motd
+  copy: src=etc/motd
+        dest=/etc/motd
+        owner=root group=root mode=0644
+  when: platform not in ['aws']
+
+# }}}
+
+#
+# [ update base packages ]
+#
+# yum update package database {{{
+
+- name:    yum check-update
+  command: yum check-update
+  ignore_errors: yes
+
+# }}}
+# yum update {{{
+
+- name:    yum update
+  command: yum -y update
+
+# }}}
+
+#
+# [ add repositories ]
+#
+# place additional yum repositories {{{
+
+- name: place additional yum repositories
+  copy: src=etc/yum.repos.d/{{ item }} dest=/etc/yum.repos.d/{{ item }} owner=root group=root mode=0644
+  with_items:
+    - nginx.repo
+
+# }}}
+
+#
+# [ install packages ]
+#
+# install packages {{{
+
+- name: ensure packages are present
+  yum:  name={{ item }} enablerepo=epel state=present
+  with_items:
+    - bash-completion
+    - bzip2
+    - git
+    - glances
+    - htop
+    - ncurses
+    - ncurses-devel
+    - openssl
+    - openssl-devel
+    - readline
+    - readline-devel
+    - rsync
+    - tree
+    - unzip
+    - vim
+    - w3m
+    - wget
+    - yum-plugin-fastestmirror
+    - yum-plugin-priorities
+    - zip
+    - zlib
+    - zlib-devel
+
+# }}}
+
