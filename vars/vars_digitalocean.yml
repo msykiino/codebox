@@ -1,4 +1,4 @@
 ---
 
-releasever: "$releasever"
+os_releasever: "$releasever"
 
