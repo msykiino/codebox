@@ -1,8 +1,8 @@
 ---
 
 localnet: |-
-          #sample
-          #192.168.1.0/24
+  #sample
+  #192.168.1.0/24
 
 releasever: "$releasever"
 
