@@ -116,6 +116,7 @@
 
 - name: ensure jpackage-release is present
   yum:  name=http://mirrors.dotsrc.org/jpackage/6.0/generic/free/RPMS/jpackage-release-6-3.jpp6.noarch.rpm state=present
+  when: platform not in ['aws']
 
 # }}}
 
