@@ -31,6 +31,9 @@ PID_FILE=/var/run/gitbucket.pid
 SU="/bin/su -s /bin/sh"
 test -x "/sbin/runuser" && SU="/sbin/runuser -s /bin/sh"
 
+# Set ulimit
+ulimit -n 65536
+
 # Default return value
 RETVAL=0
 
@@ -54,7 +57,6 @@ start() {
 
 	# Run the Java process
 	#GITBUCKET_HOME="$GITBUCKET_HOME" java $GITBUCKET_JVM_OPTS -jar $GITBUCKET_WAR_FILE $START_OPTS >>$LOG_FILE 2>&1 &
-	#$SU - $GITBUCKET_USER -c "GITBUCKET_HOME=$GITBUCKET_HOME java $GITBUCKET_JVM_OPTS -jar $GITBUCKET_WAR_FILE $START_OPTS &" >>$LOG_FILE 2>&1
 	$SU - $GITBUCKET_USER -c "GITBUCKET_HOME=$GITBUCKET_HOME java $GITBUCKET_JVM_OPTS -jar $GITBUCKET_WAR_FILE $START_OPTS" >>$LOG_FILE 2>&1 &
 	RETVAL=$?
 
