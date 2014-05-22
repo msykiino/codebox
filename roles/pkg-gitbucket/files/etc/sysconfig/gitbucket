@@ -17,5 +17,4 @@
 #GITBUCKET_PREFIX=
 
 # Other Java option
-#GITBUCKET_JVM_OPTS="-XX:PermSize=128m -XX:MaxPermSize=128m -Xms256m -Xmx256m -XX:NewRatio=2 -XX:SurvivorRatio=8"
 #GITBUCKET_JVM_OPTS=

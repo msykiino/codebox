@@ -90,7 +90,7 @@ stop() {
 		failure "GitBucket stopping"
 	fi
 
-  if [ ! "$(cat $PID_FILE 2>/dev/null)" ] ; then
+	if [ ! "$(cat $PID_FILE 2>/dev/null)" ] ; then
 		rm -f $PID_FILE 2>/dev/null
 	fi
 
