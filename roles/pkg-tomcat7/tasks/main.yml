@@ -1,0 +1,42 @@
+---
+
+#
+# [ install tomcat7 ]
+#
+# install tomcat7 for aws {{{
+
+- name: ensure tomcat7 for aws is present
+  yum:  name={{ item }} state=present
+  with_items:
+    - tomcat7
+    - tomcat7-admin-webapps
+    - tomcat7-docs-webapp
+    - tomcat7-el-2.2-api
+    - tomcat7-javadoc
+    - tomcat7-jsp-2.2-api
+    - tomcat7-lib
+    - tomcat7-servlet-3.0-api
+    - tomcat7-webapps
+    - apache-tomcat-apis
+  when: platform in ['aws']
+
+# }}}
+# install tomcat7 {{{
+
+- name: ensure tomcat7 is present
+  yum:  name={{ item }} enablerepo=jpackage state=present
+  with_items:
+    - tomcat7
+    - tomcat7-admin-webapps
+    - tomcat7-docs-webapp
+    - tomcat7-el-2.2-api
+    - tomcat7-javadoc
+    - tomcat7-jsp-2.2-api
+    - tomcat7-lib
+    - tomcat7-servlet-3.0-api
+    - tomcat7-webapps
+    - apache-tomcat-apis
+  when: platform not in ['aws']
+
+# }}}
+

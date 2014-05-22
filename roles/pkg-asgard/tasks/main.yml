@@ -1,0 +1,93 @@
+---
+
+#
+# [ useradd asgard ]
+#
+# groupadd asgard {{{
+
+- name:  groupadd asgard
+  group: name={{ asgard_group }} gid={{ asgard_gid }} state=present
+
+# }}}
+# useradd asgard {{{
+
+- name: useradd asgard
+  user: name={{ asgard_user }} uid={{ asgard_uid }} group={{ asgard_group }}
+        createhome=yes home={{ asgard_home }} shell="/bin/false" state=present
+
+# }}}
+
+#
+# [ install asgard ]
+#
+# mkdir /usr/share/asgard {{{
+
+- name: mkdir /usr/share/asgard
+  file: path="/usr/share/asgard"
+        owner={{ asgard_user }} group={{asgard_group }} mode=0755 state=directory
+
+# }}}
+# mkdir /usr/share/asgard/lib {{{
+
+- name: mkdir /usr/share/asgard/lib
+  file: path="/usr/share/asgard/lib"
+        owner={{ asgard_user }} group={{asgard_group }} mode=0755 state=directory
+
+# }}}
+# mkdir /var/lib/asgard {{{
+
+- name: mkdir /var/lib/asgard
+  file: path=/var/lib/asgard
+        owner={{ asgard_user }} group={{asgard_group }} mode=0755 state=directory
+
+# }}}
+# mkdir /var/log/asgard {{{
+
+- name: mkdir /var/log/asgard
+  file: path=/var/log/asgard
+        owner={{ asgard_user }} group={{asgard_group }} mode=0775 state=directory
+
+# }}}
+# copy /etc/asgard.conf {{{
+
+- name: copy /etc/asgard.conf
+  copy: src=etc/asgard.conf
+        dest=/etc/asgard.conf
+        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/rc.d/init.d/asgard {{{
+
+- name: copy /etc/rc.d/init.d/asgard
+  copy: src=etc/rc.d/init.d/asgard
+        dest=/etc/rc.d/init.d/asgard
+        owner=root group=root mode=0755
+
+# }}}
+# copy /etc/sysconfig/asgard {{{
+
+- name: copy /etc/sysconfig/asgard
+  copy: src=etc/sysconfig/asgard
+        dest=/etc/sysconfig/asgard
+        owner=root group=root mode=0644
+
+# }}}
+# download asgard.jar {{{
+
+- name:    download asgard.jar
+  get_url: url={{ asgard_fetch }} dest="/usr/share/asgard/lib/asgard.jar"
+           owner={{ asgard_user }} group={{asgard_group }} mode=0644
+
+# }}}
+
+#
+# [ call functions ]
+#
+# enable asgard {{{
+
+- name:    enable asgard
+  service: name=asgard enabled=yes state=started
+  ignore_errors: yes
+
+# }}}
+

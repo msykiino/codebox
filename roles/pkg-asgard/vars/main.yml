@@ -1,0 +1,12 @@
+#asgard_fetch: "https://netflix.app.box.com/index.php?rm=box_download_shared_file&vanity_name=asgard&file_id=f_13928758479"
+#asgard_fetch: "https://github.com/Netflix/asgard/releases/download/asgard-1.4.2/asgard.war"
+
+#asgard_fetch: "https://netflix.app.box.com/index.php?rm=box_download_shared_file&vanity_name=asgard&file_id=f_13928754393"
+asgard_fetch: "https://github.com/Netflix/asgard/releases/download/asgard-1.4.2/asgard-standalone.jar"
+
+asgard_uid:   505
+asgard_gid:   505
+asgard_user:  asgard
+asgard_group: asgard
+asgard_home:  /var/lib/asgard
+asgard_jar:   /usr/share/asgard/lib/asgard.jar
