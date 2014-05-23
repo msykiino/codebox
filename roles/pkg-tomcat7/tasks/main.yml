@@ -40,3 +40,39 @@
 
 # }}}
 
+#
+# [ place configuration for tomcat7 ]
+#
+# copy /etc/rc.d/init.d/tomcat7 {{{
+
+#- name: copy /etc/rc.d/init.d/tomcat7
+#  copy: src=etc/rc.d/init.d/tomcat7
+#        dest=/etc/rc.d/init.d/tomcat7
+#        owner=root group=root mode=0755
+
+# }}}
+# copy /etc/sysconfig/tomcat7 {{{
+
+#- name: copy /etc/sysconfig/tomcat7
+#  copy: src=etc/sysconfig/tomcat7
+#        dest=/etc/sysconfig/tomcat7
+#        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/tomcat7/server.xml {{{
+
+#- name: copy /etc/tomcat7/server.xml
+#  copy: src=etc/tomcat7/server.xml
+#        dest=/etc/tomcat7/server.xml
+#        owner=root group=root mode=0644
+
+# }}}
+# copy /etc/tomcat7/tomcat7.conf {{{
+
+#- name: copy /etc/tomcat7/tomcat7.conf
+#  copy: src=etc/tomcat7/tomcat7.conf
+#        dest=/etc/tomcat7/tomcat7.conf
+#        owner=root group=root mode=0644
+
+# }}}
+
