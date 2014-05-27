@@ -24,7 +24,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     override.vm.network :private_network, ip: "192.168.16.10"
    #override.vm.network :private_network, type: "dhcp"
 
-    provider.customize ["modifyvm", :id, "--memory", 1024]
+    provider.customize ["modifyvm", :id, "--memory", 2048, "--cpus", 1, "--ioapic", "on"]
+    provider.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+    provider.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
     #provider.gui =  true
 
     # disable synced_folder:
