@@ -61,10 +61,14 @@ $iptables -A INPUT -d 224.0.0.1       -j DROP
 $iptables -A INPUT -d 0.0.0.255       -j DROP
 
 # 外部とのNetBIOSのアクセスはログを記録せずに破棄
+#$iptables -A INPUT  -p udp -d 0.0.0.0/0 --dport 137:139 -j DROP
+#$iptables -A OUTPUT -p udp -d 0.0.0.0/0 --sport 137:139 -j DROP
 for i in 135 137 138 139 445
 do
-  $iptables -A INPUT  --dport $i -j DROP
-  $iptables -A OUTPUT --sport $i -j DROP
+  $iptables -A INPUT  -p tcp -d 0.0.0.0/0 --dport $i -j DROP
+  $iptables -A INPUT  -p udp -d 0.0.0.0/0 --dport $i -j DROP
+  $iptables -A OUTPUT -p tcp -d 0.0.0.0/0 --sport $i -j DROP
+  $iptables -A OUTPUT -p udp -d 0.0.0.0/0 --sport $i -j DROP
 done
 
 # フラグメント化されたパケットはログを記録して破棄
