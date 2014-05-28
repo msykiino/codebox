@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider :virtualbox do |provider, override|
     override.vm.hostname          = ENV['INSTANCE']
     override.vm.box               = "centos65"
-    override.vm.box_url           = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
+    override.vm.box_url           = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box"
     override.ssh.username         = ENV['VB_SSH_USERNAME']
    #override.ssh.private_key_path = ENV['VB_SSH_KEY']
     override.ssh.pty              = false
