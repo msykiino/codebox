@@ -19,12 +19,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     override.vm.box_url           = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
     override.ssh.username         = ENV['VB_SSH_USERNAME']
    #override.ssh.private_key_path = ENV['VB_SSH_KEY']
-    override.ssh.pty              = true
+    override.ssh.pty              = false
 
-    override.vm.network :private_network, ip: "192.168.16.10"
+    override.vm.network :private_network, ip: "192.168.56.101"
    #override.vm.network :private_network, type: "dhcp"
 
-    provider.customize ["modifyvm", :id, "--memory", 1024]
+    provider.customize ["modifyvm", :id, "--cpus",                "1"]
+    provider.customize ["modifyvm", :id, "--memory",              "1024"]
+    provider.customize ["modifyvm", :id, "--ioapic",              "on"]
+    provider.customize ["modifyvm", :id, "--natdnsproxy1",        "off"]
+    provider.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+    provider.customize ["modifyvm", :id, "--macaddress2",         "08002761A44A"]
     #provider.gui =  true
 
     # disable synced_folder:
