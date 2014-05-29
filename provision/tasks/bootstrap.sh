@@ -44,6 +44,7 @@ PACKAGES=`cat <<_EOT_
 git
 ansible
 python-setuptools
+libselinux-python
 rsync
 _EOT_`
 
