@@ -1,6 +1,27 @@
 ---
 
 #
+# [ disable selinux ]
+#
+# disable selinux {{{
+
+- name:    disable selinux
+  selinux: state=disabled
+  when: platform not in ['aws']
+  ignore_errors: yes
+
+# }}}
+# copy /etc/selinux/config {{{
+
+- name: copy /etc/selinux/config
+  copy: src=etc/selinux/config
+        dest=/etc/selinux/config
+        owner=root group=root mode=0644
+  when: platform not in ['aws']
+
+# }}}
+
+#
 # [ build firewall ]
 #
 # mkdir /root/bin {{{
