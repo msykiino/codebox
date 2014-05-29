@@ -1,6 +1,25 @@
 ---
 
 #
+# [ disable selinux ]
+#
+# disable selinux {{{
+
+- name:    disable selinux
+  selinux: state=disabled
+  ignore_errors: yes
+
+# }}}
+# copy /etc/selinux/config {{{
+
+- name: copy /etc/selinux/config
+  copy: src=etc/selinux/config
+        dest=/etc/selinux/config
+        owner=root group=root mode=0644
+
+# }}}
+
+#
 # [ update base packages ]
 #
 # yum update package database {{{
@@ -23,7 +42,7 @@
 # place additional yum repositories {{{
 
 - name: place additional yum repositories
-  copy: src=yum.repos.d/{{ item }} dest=/etc/yum.repos.d/{{ item }} owner=root group=root mode=0644
+  copy: src=etc/yum.repos.d/{{ item }} dest=/etc/yum.repos.d/{{ item }} owner=root group=root mode=0644
   with_items:
     - nginx.repo
 
