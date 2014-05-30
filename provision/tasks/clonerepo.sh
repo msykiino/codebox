@@ -41,6 +41,7 @@ fi
 # run ansible {{{
 
 cd ~/$ALIAS_TO
+touch .auto
 ./ansible-playbook-$PLATFORM $PLAYBOOK -s -v
 
 # }}}
