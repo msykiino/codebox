@@ -1,10 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 #set -x
 
 # trap
 trap 'echo -e "\nabort\n" ; exit 1' 1 2 3 15
 
 extra_vars='{"platform":"virtualbox"}'
+
+script_dir=$(cd $(dirname $0) && pwd)
+if [ ! -f "${script_dir}/.auto" ]; then
+  echo
+  echo -n "(virtualbox): You sure wanna run ? [y/N]: "
+  read ans
+  test "$ans" != "y" && echo -e "\nabort..\n\n" && exit 1
+fi
 
 ansible-playbook $* -i hosts -c local -e "$extra_vars"
 
